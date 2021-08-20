@@ -27,7 +27,7 @@ public class MemberController {
      * @return
      */
     @PostMapping("/register")
-    public ResponseEntity<HttpStatus> registeration(@RequestBody @Valid Member member){
+    public ResponseEntity<HttpStatus> registeration(@RequestBody @Valid Member member){ // @valid를 통해 객체를 검증할 수 잇다.검증 방식은 Member에 구현되어 있음
         memberService.registrationMember(member);
         return RESPONSE_OK;
     }
