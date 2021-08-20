@@ -1,6 +1,6 @@
 package com.gh.carrot.carrotmart.controller;
 
-import com.gh.carrot.carrotmart.domain.entity.member.MemberEntity;
+import com.gh.carrot.carrotmart.domain.entity.member.Member;
 import com.gh.carrot.carrotmart.service.member.MemberService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -23,12 +23,12 @@ public class MemberController {
 
     /**
      * 사용자 회원가입 기능
-     * @param memberEntity
+     * @param member
      * @return
      */
     @PostMapping("/register")
-    public ResponseEntity<HttpStatus> registeration(@RequestBody @Valid MemberEntity memberEntity){
-        memberService.registrationMember(memberEntity);
+    public ResponseEntity<HttpStatus> registeration(@RequestBody @Valid Member member){
+        memberService.registrationMember(member);
         return RESPONSE_OK;
     }
 

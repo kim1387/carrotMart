@@ -1,8 +1,8 @@
 package com.gh.carrot.carrotmart.domain.repository.member;
 
-import com.gh.carrot.carrotmart.domain.entity.member.MemberEntity;
+import com.gh.carrot.carrotmart.domain.entity.member.Member;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface MemberRepository extends JpaRepository<MemberEntity, Long> {
+public interface MemberRepository extends JpaRepository<Member, Long> {
     public boolean existsByEmail(String email);
 }

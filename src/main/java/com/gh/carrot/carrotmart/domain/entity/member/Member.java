@@ -14,7 +14,7 @@ import javax.validation.constraints.Pattern;
 @Entity
 @Getter
 @Setter
-public class MemberEntity {
+public class Member {
 
     @Id
     @GeneratedValue
