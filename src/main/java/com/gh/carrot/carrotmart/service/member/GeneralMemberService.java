@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class MemberServiceImpl implements MemberService{
+public class GeneralMemberService implements MemberService{
 
     private final MemberRepository memberRepository;
 
