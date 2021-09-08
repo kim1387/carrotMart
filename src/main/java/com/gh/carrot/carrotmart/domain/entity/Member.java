@@ -1,4 +1,4 @@
-package com.gh.carrot.carrotmart.domain.entity.member;
+package com.gh.carrot.carrotmart.domain.entity;
 
 import lombok.*;
 

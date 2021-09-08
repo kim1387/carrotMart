@@ -1,6 +1,6 @@
 package com.gh.carrot.carrotmart.domain.dto;
 
-import com.gh.carrot.carrotmart.domain.entity.member.Member;
+import com.gh.carrot.carrotmart.domain.entity.Member;
 import lombok.Builder;
 import lombok.Getter;
 import org.springframework.security.crypto.password.PasswordEncoder;
