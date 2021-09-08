@@ -1,6 +1,6 @@
 package com.gh.carrot.carrotmart.controller;
 
-import com.gh.carrot.carrotmart.domain.entity.member.Member;
+import com.gh.carrot.carrotmart.domain.dto.MemberDto;
 import com.gh.carrot.carrotmart.service.member.MemberService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -27,7 +27,7 @@ public class MemberController {
      * @return
      */
     @PostMapping
-    public ResponseEntity<HttpStatus> registeration(@RequestBody @Valid Member member){ // @valid를 통해 객체를 검증할 수 잇다.검증 방식은 Member에 구현되어 있음
+    public ResponseEntity<HttpStatus> registeration(@RequestBody @Valid MemberDto member){ // @valid를 통해 객체를 검증할 수 잇다.검증 방식은 Member에 구현되어 있음
         memberService.registrationMember(member);
         return RESPONSE_OK;
     }
