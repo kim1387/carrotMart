@@ -22,5 +22,5 @@ public class GeneralMemberService implements MemberService{
     public boolean isDuplicatedEmail(String email) {
         return memberRepository.existsByEmail(email);
     }
-
+    //test
 }
