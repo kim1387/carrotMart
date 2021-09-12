@@ -27,6 +27,7 @@ public class MemberController {
 
     /**
      * 사용자 회원가입 기능
+     *
      * @param memberDto
      * @return ResponseEntity<HttpStatus>
      */
@@ -40,6 +41,7 @@ public class MemberController {
 
     /**
      * 사용자 이메일 중복체크 기능
+     *
      * @param email
      * @return ResponseEntity<HttpStatus>
      */
@@ -53,6 +55,7 @@ public class MemberController {
 
     /**
      * 사용자 로그인
+     *
      * @param memberDto
      * @param httpSession
      * @return ResponseEntity<HttpStatus>
@@ -67,5 +70,18 @@ public class MemberController {
             return RESPONSE_OK;
         }
         return RESPONSE_BAD_REQUEST;
+    }
+
+
+    /**
+     * 사용자 로그아웃 기능
+     *
+     * @param httpSession
+     * @return ResponseEntity<HttpStatus>
+     */
+    @GetMapping("/logout")
+    public ResponseEntity<HttpStatus> logout(HttpSession httpSession) {
+        httpSession.removeAttribute(MEMBER_ID);
+        return RESPONSE_OK;
     }
 }
