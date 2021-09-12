@@ -2,6 +2,7 @@ package com.gh.carrot.carrotmart.service.member;
 
 import com.gh.carrot.carrotmart.domain.entity.Member;
 import com.gh.carrot.carrotmart.domain.repository.MemberRepository;
+import com.gh.carrot.carrotmart.exception.MemberNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,7 +26,7 @@ public class GeneralMemberService implements MemberService{
 
     @Override
     public Member findMemberByEmail(String email) {
-       return memberRepository.findByEmail(email);
+       return memberRepository.findMemberByEmail(email).orElseThrow(MemberNotFoundException::new);
     }
 
 
