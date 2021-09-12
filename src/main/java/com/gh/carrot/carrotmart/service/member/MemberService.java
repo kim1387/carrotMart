@@ -10,4 +10,6 @@ public interface MemberService {
     // 이메일 중복 체크
     public boolean isDuplicatedEmail(String email);
 
+    // 이메일로 회원 찾기
+    public Member findMemberByEmail(String email);
 }

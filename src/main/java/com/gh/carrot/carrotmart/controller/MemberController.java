@@ -10,10 +10,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
-import static com.gh.carrot.carrotmart.commons.HttpStatusResponseEntity.RESPONSE_CONFLICT;
-import static com.gh.carrot.carrotmart.commons.HttpStatusResponseEntity.RESPONSE_OK;
+import static com.gh.carrot.carrotmart.commons.HttpStatusResponseEntity.*;
 
 @RestController
 @RequiredArgsConstructor
@@ -21,13 +21,14 @@ import static com.gh.carrot.carrotmart.commons.HttpStatusResponseEntity.RESPONSE
 @RequestMapping("/api/members")
 public class MemberController {
 
+    private static final String MEMBER_ID = "MEMBER_ID";
     private final MemberService memberService;
     private final PasswordEncoder passwordEncoder;
 
     /**
      * 사용자 회원가입 기능
      * @param memberDto
-     * @return
+     * @return ResponseEntity<HttpStatus>
      */
     @PostMapping
     public ResponseEntity<HttpStatus> registeration(@RequestBody @Valid MemberDto memberDto){ // @valid를 통해 객체를 검증할 수 잇다.검증 방식은 Member에 구현되어 있음
@@ -40,7 +41,7 @@ public class MemberController {
     /**
      * 사용자 이메일 중복체크 기능
      * @param email
-     * @return
+     * @return ResponseEntity<HttpStatus>
      */
     @GetMapping("/duplicated/{email}")
     public ResponseEntity<HttpStatus> isDuplicatedEmail(@PathVariable String email){
@@ -48,5 +49,23 @@ public class MemberController {
            return RESPONSE_CONFLICT;
         }
         return RESPONSE_OK;
+    }
+
+    /**
+     * 사용자 로그인
+     * @param memberDto
+     * @param httpSession
+     * @return ResponseEntity<HttpStatus>
+     */
+    @PostMapping("/login")
+    public ResponseEntity<HttpStatus> login(@RequestBody @Valid MemberDto memberDto, HttpSession httpSession){
+        Member member = memberService.findMemberByEmail(memberDto.getEmail());
+
+        //boolean matches(String raw, String encoded) : 평문 패스워드와 암호화 패스워드가 같은 패스워드인지 비교
+        if (passwordEncoder.matches(memberDto.getPassword(),member.getPassword())){
+            httpSession.setAttribute(MEMBER_ID,member.getId());
+            return RESPONSE_OK;
+        }
+        return RESPONSE_BAD_REQUEST;
     }
 }
