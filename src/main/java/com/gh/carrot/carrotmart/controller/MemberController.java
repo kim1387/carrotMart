@@ -80,6 +80,7 @@ public class MemberController {
         // Member member = memberService.findMemberByEmail(memberDto.getEmail());
         boolean isValidMember = memberService.isValidMember(memberDto,passwordEncoder);
         if (isValidMember){
+            loginService.login(memberDto.getEmail());
             return RESPONSE_OK;
         }
         //boolean matches(String raw, String encoded) : 평문 패스워드와 암호화 패스워드가 같은 패스워드인지 비교

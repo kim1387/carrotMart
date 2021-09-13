@@ -35,11 +35,7 @@ public class GeneralMemberService implements MemberService{
     @Override
     public boolean isValidMember(MemberDto memberDto, PasswordEncoder passwordEncoder) {
         Member member = findMemberByEmail(memberDto.getEmail());
-        if (passwordEncoder.matches(memberDto.getPassword(), member.getPassword())){
-            loginService.login(member.getEmail());
-            return true;
-        }
-        return false;
+        return passwordEncoder.matches(memberDto.getPassword(), member.getPassword());
     }
 
 
