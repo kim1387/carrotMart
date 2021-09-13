@@ -14,7 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class GeneralMemberService implements MemberService{
 
     private final MemberRepository memberRepository;
-    private final SessionLoginService sessionLoginService;
+    private final LoginService loginService;
 
     @Override
     @Transactional
@@ -36,7 +36,7 @@ public class GeneralMemberService implements MemberService{
     public boolean isValidMember(MemberDto memberDto, PasswordEncoder passwordEncoder) {
         Member member = findMemberByEmail(memberDto.getEmail());
         if (passwordEncoder.matches(memberDto.getPassword(), member.getPassword())){
-            sessionLoginService.login(member.getEmail());
+            loginService.login(member.getEmail());
             return true;
         }
         return false;
