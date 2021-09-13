@@ -21,6 +21,15 @@ import static com.gh.carrot.carrotmart.commons.HttpStatusResponseEntity.*;
 @RequestMapping("/api/members")
 public class MemberController {
 
+    // 문득 든 생각... 왜 인터페이스를 사용 하는가... 결론 OCP(개방폐쇄 원리)
+    // interface와 class가 1:1 관계 일 때도 인터페이스가 사용이 되어야하는가...? 라는 질문.. 작년부터 궁금했다.
+    // 작년엔 cs 지식이 모자라서 이해를 못했지만.. OCP 원리 때문이라고 한다. 이때문에 spring offical docs에서도 interface 사용을 권장한다.
+    // 결론 찬반(?) 의견이 갈림
+    // 반대: 관례적으로 무조건 사용하는 것은 지양해야한다. 그렇다고 interface를 만들지 말라는 의미는 x
+    // 찬성: 비록 현재는 바뀌지 않고 불필요해 보이지 않지만 서비스는 계속 변화 한다. 개발자는 항상 미래의 변화를 대비 해야하므로 만드는 것이 좋다. -TOBY-
+    // [참고자료]
+    // https://see-one.tistory.com/1?category=948566 - Spring Security service 구현체 관련
+    // https://codevang.tistory.com/312  -- 스프링 의존 주입(DI)과 인터페이스 사용에 관하여
     private final MemberService memberService;
     private final PasswordEncoder passwordEncoder;
     private final LoginService loginService;
