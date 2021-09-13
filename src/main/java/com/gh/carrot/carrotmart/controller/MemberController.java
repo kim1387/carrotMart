@@ -4,7 +4,6 @@ import com.gh.carrot.carrotmart.domain.dto.MemberDto;
 import com.gh.carrot.carrotmart.domain.entity.Member;
 import com.gh.carrot.carrotmart.service.member.LoginService;
 import com.gh.carrot.carrotmart.service.member.MemberService;
-import com.gh.carrot.carrotmart.service.member.SessionLoginService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -22,7 +21,6 @@ import static com.gh.carrot.carrotmart.commons.HttpStatusResponseEntity.*;
 @RequestMapping("/api/members")
 public class MemberController {
 
-    private static final String MEMBER_ID = "MEMBER_ID";
     private final MemberService memberService;
     private final PasswordEncoder passwordEncoder;
     private final LoginService loginService;
