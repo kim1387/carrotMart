@@ -1,5 +1,6 @@
 package com.gh.carrot.carrotmart.controller;
 
+import com.gh.carrot.carrotmart.commons.annotation.LoginRequired;
 import com.gh.carrot.carrotmart.domain.dto.MemberDto;
 import com.gh.carrot.carrotmart.domain.entity.Member;
 import com.gh.carrot.carrotmart.service.member.LoginService;
@@ -97,6 +98,7 @@ public class MemberController {
      *
      * @return ResponseEntity<HttpStatus>
      */
+    @LoginRequired //로그아웃 기능에 대해서 로그인 여부를 체크하는 어노테이션 추가
     @GetMapping("/logout")
     public ResponseEntity<HttpStatus> logout() {
         loginService.logout();
