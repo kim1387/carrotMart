@@ -1,6 +1,7 @@
 package com.gh.carrot.carrotmart.service.member;
 
 import com.gh.carrot.carrotmart.domain.dto.MemberDto;
+import com.gh.carrot.carrotmart.domain.dto.PasswordRequest;
 import com.gh.carrot.carrotmart.domain.dto.ProfileRequest;
 import com.gh.carrot.carrotmart.domain.entity.Member;
 import com.gh.carrot.carrotmart.domain.repository.MemberRepository;
@@ -45,9 +46,19 @@ public class GeneralMemberService implements MemberService{
     }
 
     @Override
+    public boolean isValidPassword(Member member, PasswordRequest passwordRequest, PasswordEncoder passwordEncoder) {
+      return passwordEncoder.matches(passwordRequest.getOldPassword(), member.getPassword());
+    }
+
+    @Override
     @Transactional
     public void updateMemberProfile(Member member, ProfileRequest profileRequest) {
         member.updateProfile(profileRequest.getNickname());
+    }
+
+    @Override
+    public void updateMemberPassword(Member member, PasswordRequest passwordRequest, PasswordEncoder passwordEncoder) {
+        member.updatePassword(passwordEncoder.encode(passwordRequest.getNewPassword()));
     }
 
 
