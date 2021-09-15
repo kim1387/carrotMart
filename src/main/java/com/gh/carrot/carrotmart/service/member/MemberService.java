@@ -1,6 +1,7 @@
 package com.gh.carrot.carrotmart.service.member;
 
 import com.gh.carrot.carrotmart.domain.dto.MemberDto;
+import com.gh.carrot.carrotmart.domain.dto.ProfileRequest;
 import com.gh.carrot.carrotmart.domain.entity.Member;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
@@ -19,4 +20,8 @@ public interface MemberService {
 
     // 유효한 맴버인지 확인
     boolean isValidMember(MemberDto memberDto, PasswordEncoder passwordEncoder);
+
+    // 사용자 정보 업데이트 기능 구현
+    void updateMemberProfile(Member member, ProfileRequest profileRequest);
+
 }

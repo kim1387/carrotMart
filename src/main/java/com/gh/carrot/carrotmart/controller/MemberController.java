@@ -2,6 +2,7 @@ package com.gh.carrot.carrotmart.controller;
 
 import com.gh.carrot.carrotmart.commons.annotation.LoginRequired;
 import com.gh.carrot.carrotmart.domain.dto.MemberDto;
+import com.gh.carrot.carrotmart.domain.dto.ProfileRequest;
 import com.gh.carrot.carrotmart.domain.dto.ProfileResponse;
 import com.gh.carrot.carrotmart.domain.entity.Member;
 import com.gh.carrot.carrotmart.service.member.LoginService;
@@ -48,11 +49,13 @@ public class MemberController {
         // 클라이언트에서 사용자 이메일 중복체크를 수행하지만 API 요청에 의한 예외상황에 대비하여 더블체크
         boolean isDuplicated = memberService.isDuplicatedEmail(memberDto.getEmail());
         if (isDuplicated){
+
             return RESPONSE_CONFLICT;
         }
 
         Member member = MemberDto.toEntity(memberDto, passwordEncoder);
         memberService.registrationMember(member);
+
         return RESPONSE_OK;
     }
 
@@ -65,6 +68,7 @@ public class MemberController {
     @GetMapping("/duplicated/{email}")
     public ResponseEntity<HttpStatus> isDuplicatedEmail(@PathVariable String email){
         if (memberService.isDuplicatedEmail(email)){
+
            return RESPONSE_CONFLICT;
         }
         return RESPONSE_OK;
@@ -83,6 +87,7 @@ public class MemberController {
         boolean isValidMember = memberService.isValidMember(memberDto,passwordEncoder);
         if (isValidMember){
             loginService.login(memberService.findMemberByEmail(memberDto.getEmail()).getId());
+
             return RESPONSE_OK;
         }
         //boolean matches(String raw, String encoded) : 평문 패스워드와 암호화 패스워드가 같은 패스워드인지 비교
@@ -103,6 +108,7 @@ public class MemberController {
     @GetMapping("/logout")
     public ResponseEntity<HttpStatus> logout() {
         loginService.logout();
+
         return RESPONSE_OK;
     }
 
@@ -119,4 +125,22 @@ public class MemberController {
 
         return ResponseEntity.ok(ProfileResponse.of(member));
     }
+
+
+    /**
+     * 사용자 프로필 정보 업데이트 기능
+     * @param id
+     * @param profileRequest
+     * @return
+     */
+    @LoginRequired
+    @PutMapping("/profile/{id}")
+    public ResponseEntity<ProfileResponse> updateMemberProfile(@PathVariable long id, @RequestBody ProfileRequest profileRequest) {
+
+        Member member = loginService.getLoginMember(id);
+        memberService.updateMemberProfile(member, profileRequest);
+
+        return ResponseEntity.ok(ProfileResponse.of(member));
+    }
+
 }

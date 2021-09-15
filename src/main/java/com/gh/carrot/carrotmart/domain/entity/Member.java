@@ -1,15 +1,17 @@
 package com.gh.carrot.carrotmart.domain.entity;
 
-import lombok.*;
+import lombok.AccessLevel;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.io.Serializable;
 
 @Entity
 @Getter
 @Table(name = "MEMBER")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Member implements Serializable {
+public class Member{
 
     @Id
     @GeneratedValue
@@ -26,6 +28,10 @@ public class Member implements Serializable {
     public Member(String email, String password, String nickname) {
         this.email = email;
         this.password = password;
+        this.nickname = nickname;
+    }
+
+    public void update(String nickname){
         this.nickname = nickname;
     }
 }

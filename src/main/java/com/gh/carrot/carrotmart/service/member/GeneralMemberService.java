@@ -1,6 +1,7 @@
 package com.gh.carrot.carrotmart.service.member;
 
 import com.gh.carrot.carrotmart.domain.dto.MemberDto;
+import com.gh.carrot.carrotmart.domain.dto.ProfileRequest;
 import com.gh.carrot.carrotmart.domain.entity.Member;
 import com.gh.carrot.carrotmart.domain.repository.MemberRepository;
 import com.gh.carrot.carrotmart.exception.MemberNotFoundException;
@@ -41,6 +42,12 @@ public class GeneralMemberService implements MemberService{
     public boolean isValidMember(MemberDto memberDto, PasswordEncoder passwordEncoder) {
         Member member = findMemberByEmail(memberDto.getEmail());
         return passwordEncoder.matches(memberDto.getPassword(), member.getPassword());
+    }
+
+    @Override
+    @Transactional
+    public void updateMemberProfile(Member member, ProfileRequest profileRequest) {
+        member.update(profileRequest.getNickname());
     }
 
 
