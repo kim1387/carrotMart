@@ -33,6 +33,11 @@ public class GeneralMemberService implements MemberService{
     }
 
     @Override
+    public Member findMemberById(long id) {
+        return memberRepository.findMemberById(id).orElseThrow(MemberNotFoundException::new);
+    }
+
+    @Override
     public boolean isValidMember(MemberDto memberDto, PasswordEncoder passwordEncoder) {
         Member member = findMemberByEmail(memberDto.getEmail());
         return passwordEncoder.matches(memberDto.getPassword(), member.getPassword());

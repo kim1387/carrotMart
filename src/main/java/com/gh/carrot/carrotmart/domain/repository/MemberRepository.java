@@ -10,4 +10,5 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
 
     // 오류는 아니지만 반환 값을 매소드에 명시
     Optional<Member> findMemberByEmail(String email);
+    Optional<Member> findMemberById(Long id);
 }

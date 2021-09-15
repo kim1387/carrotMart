@@ -14,6 +14,8 @@ public interface MemberService {
 
     // 이메일로 회원 찾기
     Member findMemberByEmail(String email);
+    // ID로 회원 찾기
+    Member findMemberById(long id);
 
     // 유효한 맴버인지 확인
     boolean isValidMember(MemberDto memberDto, PasswordEncoder passwordEncoder);
