@@ -2,6 +2,7 @@ package com.gh.carrot.carrotmart.controller;
 
 import com.gh.carrot.carrotmart.commons.annotation.LoginRequired;
 import com.gh.carrot.carrotmart.domain.dto.MemberDto;
+import com.gh.carrot.carrotmart.domain.dto.PasswordRequest;
 import com.gh.carrot.carrotmart.domain.dto.ProfileRequest;
 import com.gh.carrot.carrotmart.domain.dto.ProfileResponse;
 import com.gh.carrot.carrotmart.domain.entity.Member;
@@ -34,6 +35,7 @@ public class MemberController {
     // https://see-one.tistory.com/1?category=948566 - Spring Security service 구현체 관련
     // https://codevang.tistory.com/312  -- 스프링 의존 주입(DI)과 인터페이스 사용에 관하여
     private final MemberService memberService;
+    // passwordEncoder는 왜 주입해서 쓰는걸까/
     private final PasswordEncoder passwordEncoder;
     private final LoginService loginService;
 
@@ -139,6 +141,24 @@ public class MemberController {
         memberService.updateMemberProfile(member, profileRequest);
 
         return ResponseEntity.ok(ProfileResponse.of(member));
+    }
+
+    /**
+     * 비밀번호 변경 기능
+     * @param passwordRequest 패스워드 request
+     * @return
+     */
+    @LoginRequired
+    @PutMapping("/password")
+    public ResponseEntity<HttpStatus> changePassword(@Valid @RequestBody PasswordRequest passwordRequest) {
+
+        Member member = loginService.getLoginMember();
+
+        if(memberService.isValidPassword(member, passwordRequest, passwordEncoder)) {
+            memberService.updateMemberPassword(member, passwordRequest, passwordEncoder);
+        }
+
+        return RESPONSE_OK;
     }
 
 }
