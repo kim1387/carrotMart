@@ -2,6 +2,7 @@ package com.gh.carrot.carrotmart.controller;
 
 import com.gh.carrot.carrotmart.commons.annotation.LoginRequired;
 import com.gh.carrot.carrotmart.domain.dto.MemberDto;
+import com.gh.carrot.carrotmart.domain.dto.ProfileResponse;
 import com.gh.carrot.carrotmart.domain.entity.Member;
 import com.gh.carrot.carrotmart.service.member.LoginService;
 import com.gh.carrot.carrotmart.service.member.MemberService;
@@ -103,5 +104,19 @@ public class MemberController {
     public ResponseEntity<HttpStatus> logout() {
         loginService.logout();
         return RESPONSE_OK;
+    }
+
+    /**
+     * 사용자 프로필 조회 기능
+     * @param id
+     * @return ResponseEntity<ProfileResponse>
+     */
+    @LoginRequired
+    @GetMapping("/profile/{id}")
+    public ResponseEntity<ProfileResponse> getMemberProfile(@PathVariable long id) {
+
+        Member member = loginService.getLoginMember(id);
+
+        return ResponseEntity.ok(ProfileResponse.of(member));
     }
 }
