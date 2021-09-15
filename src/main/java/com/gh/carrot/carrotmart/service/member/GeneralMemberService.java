@@ -1,5 +1,6 @@
 package com.gh.carrot.carrotmart.service.member;
 
+import com.gh.carrot.carrotmart.domain.dto.LocationAddressRequest;
 import com.gh.carrot.carrotmart.domain.dto.MemberDto;
 import com.gh.carrot.carrotmart.domain.dto.PasswordRequest;
 import com.gh.carrot.carrotmart.domain.dto.ProfileRequest;
@@ -59,6 +60,12 @@ public class GeneralMemberService implements MemberService{
     @Override
     public void updateMemberPassword(Member member, PasswordRequest passwordRequest, PasswordEncoder passwordEncoder) {
         member.updatePassword(passwordEncoder.encode(passwordRequest.getNewPassword()));
+    }
+
+    @Override
+    @Transactional
+    public void setMemberLocationAddress(Member member, LocationAddressRequest locationAddressRequest) {
+        member.setMemberLocationAddress(locationAddressRequest);
     }
 
 

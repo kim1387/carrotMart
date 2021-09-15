@@ -1,10 +1,8 @@
 package com.gh.carrot.carrotmart.controller;
 
+import com.gh.carrot.carrotmart.commons.annotation.LoginMember;
 import com.gh.carrot.carrotmart.commons.annotation.LoginRequired;
-import com.gh.carrot.carrotmart.domain.dto.MemberDto;
-import com.gh.carrot.carrotmart.domain.dto.PasswordRequest;
-import com.gh.carrot.carrotmart.domain.dto.ProfileRequest;
-import com.gh.carrot.carrotmart.domain.dto.ProfileResponse;
+import com.gh.carrot.carrotmart.domain.dto.*;
 import com.gh.carrot.carrotmart.domain.entity.Member;
 import com.gh.carrot.carrotmart.service.member.LoginService;
 import com.gh.carrot.carrotmart.service.member.MemberService;
@@ -157,6 +155,21 @@ public class MemberController {
         if(memberService.isValidPassword(member, passwordRequest, passwordEncoder)) {
             memberService.updateMemberPassword(member, passwordRequest, passwordEncoder);
         }
+
+        return RESPONSE_OK;
+    }
+
+    /**
+     * 비밀번호 변경 기능
+     * @param member
+     * @param locationAddressRequest
+     * @return ResponseEntity<HttpStatus>
+     */
+    @LoginRequired
+    @PutMapping("/my-location")
+    public ResponseEntity<HttpStatus> setMemberLocationAddress(@LoginMember Member member, @RequestBody LocationAddressRequest locationAddressRequest) {
+
+        memberService.setMemberLocationAddress(member, locationAddressRequest);
 
         return RESPONSE_OK;
     }

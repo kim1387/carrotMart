@@ -1,5 +1,6 @@
 package com.gh.carrot.carrotmart.domain.entity;
 
+import com.gh.carrot.carrotmart.domain.dto.LocationAddressRequest;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -24,6 +25,12 @@ public class Member{
 
     private String nickname;
 
+    @Embedded
+    private Address address;
+
+    @Embedded
+    private Location location;
+
     @Builder
     public Member(String email, String password, String nickname) {
         this.email = email;
@@ -38,4 +45,10 @@ public class Member{
     public void updatePassword(String password) {
         this.password = password;
     }
+
+    public void setMemberLocationAddress(LocationAddressRequest locationAddress) {
+        this.address = locationAddress.toAddress();
+        this.location = locationAddress.toLocation();
+    }
+
 }

@@ -1,5 +1,6 @@
 package com.gh.carrot.carrotmart.service.member;
 
+import com.gh.carrot.carrotmart.domain.dto.LocationAddressRequest;
 import com.gh.carrot.carrotmart.domain.dto.MemberDto;
 import com.gh.carrot.carrotmart.domain.dto.PasswordRequest;
 import com.gh.carrot.carrotmart.domain.dto.ProfileRequest;
@@ -30,5 +31,8 @@ public interface MemberService {
 
     // 비밀번호 업데이트
     void updateMemberPassword(Member member, PasswordRequest passwordRequest, PasswordEncoder passwordEncoder);
+
+    // 사용자 위치 정보 설정
+    void setMemberLocationAddress(Member member, LocationAddressRequest locationAddressRequest);
 
 }
