@@ -3,13 +3,13 @@ package com.gh.carrot.carrotmart.domain.entity;
 import lombok.*;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Getter
-@Setter
 @Table(name = "MEMBER")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Member {
+public class Member implements Serializable {
 
     @Id
     @GeneratedValue
