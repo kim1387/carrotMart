@@ -1,6 +1,7 @@
 package com.gh.carrot.carrotmart.interceptor;
 
 import com.gh.carrot.carrotmart.commons.annotation.LoginRequired;
+import com.gh.carrot.carrotmart.domain.entity.Member;
 import com.gh.carrot.carrotmart.exception.UnAuthorizedAccessException;
 import org.springframework.stereotype.Component;
 import org.springframework.web.method.HandlerMethod;
@@ -22,8 +23,13 @@ public class LoginInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 
         HandlerMethod handlerMethod = (HandlerMethod) handler;
-        String memberId = (String) request.getSession().getAttribute(MEMBER_ID);
-        if (memberId !=null){
+//        String memberId = (String) request.getSession().getAttribute(MEMBER_ID);
+//        if (memberId !=null){
+//            return true;
+//        }
+        // 궁금증? Member로만 바꾸기만 햇는데 반환되는 값이 달라짐/??
+        Member member = (Member) request.getSession().getAttribute(MEMBER_ID);
+        if (member !=null){
             return true;
         }
         if (handlerMethod.hasMethodAnnotation(LoginRequired.class)) {

@@ -1,5 +1,6 @@
 package com.gh.carrot.carrotmart.service.member;
 
+import com.gh.carrot.carrotmart.domain.entity.Member;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -13,12 +14,17 @@ public class SessionLoginService implements LoginService {
     private static final String MEMBER_ID = "MEMBER_ID";
 
     @Override
-    public void login(String email) {
-        httpSession.setAttribute(MEMBER_ID, email);
+    public void login(Member member) {
+        httpSession.setAttribute(MEMBER_ID, member);
     }
 
     @Override
     public void logout() {
         httpSession.removeAttribute(MEMBER_ID);
+    }
+
+    @Override
+    public Member getLoginMember(Long id) {
+        return (Member) httpSession.getAttribute(MEMBER_ID);
     }
 }
