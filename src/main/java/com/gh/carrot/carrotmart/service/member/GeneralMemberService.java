@@ -47,7 +47,7 @@ public class GeneralMemberService implements MemberService{
     @Override
     @Transactional
     public void updateMemberProfile(Member member, ProfileRequest profileRequest) {
-        member.update(profileRequest.getNickname());
+        member.updateProfile(profileRequest.getNickname());
     }
 
 
